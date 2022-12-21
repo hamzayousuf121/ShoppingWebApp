@@ -1,0 +1,13 @@
+﻿@using WebApplication1.Models;
+@model City;
+
+<div class="container">
+    <form asp-action="AddOrUpdateCity" asp-controller="Admin" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input type="text" asp-for="Name" required class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

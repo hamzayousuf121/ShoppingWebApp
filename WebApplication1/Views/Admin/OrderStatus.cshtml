@@ -1,0 +1,33 @@
+﻿@using WebApplication1.Models;
+
+@model List<OrderStatus>
+
+<h1>OrderStatus</h1>
+<a asp-action="AddOrUpdateOrderStatus" asp-controller="Admin">Create new Order Status </a>
+
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderStatus in Model)
+        {
+            <tr>
+                <td>@orderStatus.Id</td>
+                <td>@orderStatus.Name</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewOrderStatus" asp-route-id="@orderStatus.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteOrderStatus" asp-route-id="@orderStatus.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateOrderStatus" asp-route-id="@orderStatus.Id">Edit</a>
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -1,0 +1,46 @@
+﻿@using WebApplication1.Migrations
+@model AddressDetail
+
+<div class="container">
+    <form asp-controller="Admin" asp-action="AddOrUpdateAddressDetail" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-1">
+            <label asp-for="HouseNo" class="form-label">House No</label>
+            <input type="text" asp-for="HouseNo" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="StreetNo" class="form-label">Street No</label>
+            <input type="text" asp-for="StreetNo" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Area" class="form-label">Area</label>
+            <input type="text" asp-for="Area" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" asp-for="CityId">Select Role</label>
+            <select asp-for="CityId" class="form-control">
+
+                @foreach (var item in ViewBag.City)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" asp-for="UserId">Select Role</label>
+            <select asp-for="UserId" class="form-control">
+
+                @foreach (var item in ViewBag.User)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

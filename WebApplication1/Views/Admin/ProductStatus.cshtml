@@ -1,0 +1,34 @@
+﻿@using WebApplication1.Models;
+@model List<ProductStatus>
+
+<h1>Product Status</h1>
+
+<a asp-action="AddOrUpdateProductStatus" asp-controller="Admin">Create New Product Status</a>
+
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var productStatus in Model)
+        {
+            <tr>
+                <td>@productStatus.Id</td>
+                <td>@productStatus.Name</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewProductStatus" asp-route-id="@productStatus.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteProductStatus" asp-route-id="@productStatus.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateProductStatus" asp-route-id="@productStatus.Id">Edit</a>
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+

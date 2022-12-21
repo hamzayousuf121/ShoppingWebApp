@@ -1,0 +1,39 @@
+﻿@using WebApplication1.Models;
+@model List<Order>
+
+<h1>Order</h1>
+
+<a asp-action="AddOrUpdateOrder" asp-controller="Admin">Create new Order</a>
+
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product</th>
+            <th scope="col">Buyer</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Product.Title</td>
+                <td>@order.Buyer.Name</td>
+                <td>@order.CreatedOn</td>
+                <td>@order.OrderStatus.Name</td> 
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewOrder" asp-route-id="@order.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteOrder" asp-route-id="@order.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateOrder" asp-route-id="@order.Id">Edit</a>
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

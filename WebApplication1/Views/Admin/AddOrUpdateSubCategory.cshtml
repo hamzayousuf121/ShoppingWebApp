@@ -1,0 +1,22 @@
+﻿@using WebApplication1.Models;
+@model SubCategory;
+
+
+<div class="container">
+    <form asp-action="AddOrUpdateSubCategory" asp-controller="Admin" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input type="text" asp-for="Name" required class="form-control" />
+        </div>
+        <div class="mb-3">
+            <select class="form-control" asp-for="CategoryId">
+                @foreach (var item in ViewBag.Category)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+﻿@using WebApplication1.Models;
+@model List<Role>
+
+<h1>Role</h1>
+<a asp-action="AddOrUpdateRole">Create new Role</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                     <td>
+                <a asp-controller="Admin" asp-action="ViewRole" asp-route-id="@role.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteRole" asp-route-id="@role.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateRole" asp-route-id="@role.Id">Edit</a>
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

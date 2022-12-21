@@ -1,0 +1,33 @@
+﻿@using WebApplication1.Models;
+@model AddressDetail
+
+<h1>Adress Details</h1>
+<a asp-action="AddressDetail" asp-controller="Admin">Back to List</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">HouseNo</th>
+            <th scope="col">StreetNo</th>
+            <th scope="col">Area</th>
+            <th scope="col">City</th>
+            <th scope="col">User</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.HouseNo</td>
+            <td>@Model.StreetNo</td>
+            <td>@Model.Area</td>
+            <td>@Model.City.Name</td>
+            <td>@Model.User.Name</td>
+            <td>
+                <a asp-controller="Admin" asp-action="DeleteAddressDetail" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Admin" asp-action="AddOrUpdateAddressDetail" asp-route-id="@Model.Id">Edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

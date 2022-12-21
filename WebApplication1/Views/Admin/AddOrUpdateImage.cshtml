@@ -1,0 +1,24 @@
+﻿@using WebApplication1.Migrations
+@model Images
+
+<div class="container">
+    <form asp-controller="Admin" asp-action="AddOrUpdateImage" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-1">
+            <label asp-for="Url" class="form-label">Images URL</label>
+            <input type="text" asp-for="Url" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" asp-for="ProductId">Select Product </label>
+            <select asp-for="ProductId" class="form-control">
+                @foreach (var item in ViewBag.Product)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

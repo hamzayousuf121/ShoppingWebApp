@@ -1,0 +1,43 @@
+﻿@using WebApplication1.Migrations
+@model Order
+
+<div class="container">
+    <form asp-controller="Admin" asp-action="AddOrUpdateOrder" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-1">
+            <label class="form-label" asp-for="ProductId">Select Product </label>
+            <select asp-for="ProductId" class="form-control">
+                @foreach (var item in ViewBag.Product)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" asp-for="BuyerId">Buyer </label>
+            <select asp-for="BuyerId" class="form-control">
+                @foreach (var item in ViewBag.Buyer)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="CreatedOn" class="form-label">Created On</label>
+            <input type="date" asp-for="CreatedOn" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label" asp-for="OrderStatusId">Order Status </label>
+            <select asp-for="OrderStatusId" class="form-control">
+                @foreach (var item in ViewBag.OrderStatus)
+                {
+                        <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

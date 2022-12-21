@@ -1,0 +1,49 @@
+﻿@using WebApplication1.Models;
+@model List<Product>
+
+<h1>Product</h1>
+<a asp-action="AddOrUpdateProduct">Create New Product</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Images</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Added on </th>
+            <th scope="col">Seller</th>
+            <th scope="col">Product Status</th>
+            <th scope="col">Sub Category</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Title</td>
+                <td>
+                    <img src="@product.Images" alt="@product.Title" class="img-fluid" height="150" width="120"/>
+                </td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.AddedOn</td>
+                <td>@product.Seller.Name</td>
+                <td>@product.ProductStatus.Name</td>
+                <td>@product.SubCategory.Name</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewProduct" asp-route-id="@product.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@product.Id">Delete</a>
+                        <a asp-controller="Admin" asp-action="AddOrUpdateProduct" asp-route-id="@product.Id">Edit</a>
+
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

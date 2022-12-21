@@ -1,0 +1,42 @@
+﻿@using WebApplication1.Migrations
+@model User
+
+<div class="container">
+    <form asp-controller="Admin" asp-action="AddOrUpdateUser" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-1">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input type="text" asp-for="Name" class="form-control">
+        </div>
+        <div class="mb-1">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input type="email" asp-for="Email" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input type="Password" asp-for="Password" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+            <input type="number" asp-for="PhoneNumber" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="JoinOn" class="form-label">Join On</label>
+            <input type="date" asp-for="JoinOn" class="form-control">
+        </div>
+        <div class="mb-1">
+            <label class="form-label" asp-for="RoleId">Select Role</label>
+            <select asp-for="RoleId" class="form-control">
+               
+                @foreach (var item in ViewBag.Role)
+                {
+                   <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

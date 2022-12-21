@@ -1,0 +1,43 @@
+﻿@using WebApplication1.Models;
+@model List<User>
+
+<h1>User</h1>
+<a asp-action="AddOrUpdateUser" asp-controller="Admin">Create New User</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">Phone No</th>
+            <th scope="col">Joined on</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Password</td>
+                <td>@user.PhoneNumber</td>
+                <td>@user.JoinOn</td>
+                <td>@user.Role.Name</td>
+                <td><a asp-controller="Admin" asp-action="ViewUser" asp-route-id="@user.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateUser" asp-route-id="@user.Id">Edit</a>
+
+
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

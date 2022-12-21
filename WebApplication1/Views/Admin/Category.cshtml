@@ -1,0 +1,30 @@
+﻿@using WebApplication1.Models;
+@model List<Category>
+
+<h1> Category</h1>
+<a asp-action="AddOrUpdateCategory">Create New Category</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewCategory" asp-route-id="@category.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateCategory" asp-route-id="@category.Id">Edit</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

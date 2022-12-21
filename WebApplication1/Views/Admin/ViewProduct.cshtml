@@ -1,0 +1,41 @@
+﻿@using WebApplication1.Models;
+@model Product
+
+<h1>Product Detail</h1>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Images</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Added on </th>
+            <th scope="col">Seller</th>
+            <th scope="col">Product Status</th>
+            <th scope="col">Sub Category</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Title</td>
+            <td>
+                <img src="@Model.Images" alt="@Model.Title" class="img-fluid" height="150" width="120" />
+            </td>
+            <td>@Model.Description</td>
+            <td>@Model.Price</td>
+            <td>@Model.AddedOn</td>
+            <td>@Model.Seller.Name</td>
+            <td>@Model.ProductStatus.Name</td>
+            <td>@Model.SubCategory.Name</td>
+            <td>
+                <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Admin" asp-action="AddOrUpdateProduct" asp-route-id="@Model.Id">Edit</a>
+                </td>
+        </tr>
+    </tbody>
+</table>
+

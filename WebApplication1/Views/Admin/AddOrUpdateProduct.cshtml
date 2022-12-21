@@ -1,0 +1,63 @@
+﻿@using WebApplication1.Migrations
+@model Product
+
+<div class="container">
+    <form asp-controller="Admin" asp-action="AddOrUpdateProduct" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-1">
+            <label asp-for="Title" class="form-label">Title</label>
+            <input type="text" asp-for="Title" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Images" class="form-label">Images URL</label>
+            <input type="text" asp-for="Images" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input type="number" asp-for="Price" class="form-control">
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="AddedOn" class="form-label">Added On</label>
+            <input type="date" asp-for="AddedOn" class="form-control">
+        </div>
+
+         <div class="mb-1">
+            <label asp-for="SellerId" class="form-label">Seller</label>
+            <select class="form-control" asp-for="SellerId">
+                @foreach (var item in ViewBag.Seller)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="ProductStatusId" class="form-label">Product Status</label>
+            <select class="form-control" asp-for="ProductStatusId">
+                @foreach (var item in ViewBag.ProductStatus)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="SubCategoryId" class="form-label">Sub Category</label>
+            <select class="form-control" asp-for="SubCategoryId">
+                @foreach (var item in ViewBag.SubCategory)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+﻿@using WebApplication1.Models;
+@model OrderStatus
+
+<h1>Order Status Details</h1>
+
+<a asp-action="OrderStatus" asp-controller="Admin">Back to List</a>
+
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+            <td>
+                <a asp-controller="Admin" asp-action="DeleteOrderStatus" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Admin" asp-action="AddOrUpdateOrderStatus" asp-route-id="@Model.Id">Edit</a>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+

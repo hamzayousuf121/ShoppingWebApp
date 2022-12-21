@@ -1,0 +1,32 @@
+﻿@using WebApplication1.Models;
+@model Images
+
+<h1>Product Images Detail</h1>
+<a asp-action="Image">Images Listing</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Images</th>
+            <th scope="col">Product</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        
+            <tr>
+                <td>@Model.Id</td>
+
+                <td>
+                    <img src="@Model.Url" alt="@Model.Product.Title" class="img-fluid" height="100" width="120" />
+                </td>
+                <td>@Model.Product.Title</td>
+                <td>
+                <a asp-controller="Admin" asp-action="DeleteImage" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Admin" asp-action="AddOrUpdateImage" asp-route-id="@Model.Id">Edit</a>
+
+                </td>
+            </tr>
+    </tbody>
+</table>

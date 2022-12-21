@@ -1,0 +1,31 @@
+﻿@using WebApplication1.Models;
+@model List<City>
+
+<h1>City</h1>
+<a asp-action="AddOrUpdateCity">Create New City</a>
+
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in Model)
+        {
+            <tr>
+                <td>@city.Id</td>
+                <td>@city.Name</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="ViewCity" asp-route-id="@city.Id">View</a>
+                    <a asp-controller="Admin" asp-action="DeleteCity" asp-route-id="@city.Id">Delete</a>
+                    <a asp-controller="Admin" asp-action="AddOrUpdateCity" asp-route-id="@city.Id">Edit</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

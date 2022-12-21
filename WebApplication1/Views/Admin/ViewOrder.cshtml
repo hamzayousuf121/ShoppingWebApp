@@ -1,0 +1,34 @@
+﻿@using WebApplication1.Models;
+@model Order
+
+<h1>Order Details</h1>
+
+<a asp-action="Order">Back to Listing</a>
+<table class="table table-responsive table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product</th>
+            <th scope="col">Buyer</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Product.Title</td>
+                <td>@Model.Buyer.Name</td>
+                <td>@Model.CreatedOn</td>
+                <td>@Model.OrderStatus.Name</td>
+                  <td>
+            <a asp-controller="Admin" asp-action="DeleteOrderStatus" asp-route-id="@Model.Id">Delete</a>
+         <a asp-controller="Admin" asp-action="AddOrUpdateOrderStatus" asp-route-id="@Model.Id">Edit</a>
+
+            </td>
+            </tr>
+       
+    </tbody>
+</table>
