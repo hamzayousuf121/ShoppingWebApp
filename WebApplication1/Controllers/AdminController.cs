@@ -163,6 +163,17 @@ namespace WebApplication1.Controllers
         }
         public IActionResult DeleteCity(int id)
         {
+            List<AddressDetail> addressDetail = _context.AddressDetail?.Where(x => x.CityId == id).ToList();
+            if (addressDetail is not null)
+            {
+                foreach (var item in addressDetail)
+                {
+                    _context.AddressDetail?.Remove(item);
+
+                }
+                _context.SaveChanges();
+            }
+
             City city = _context?.City?.Where(x => x.Id == id).FirstOrDefault();
             _context.City.Remove(city);
             _context.SaveChanges();
@@ -230,7 +241,7 @@ namespace WebApplication1.Controllers
         {
             _context.Images.Update(Images);
             _context.SaveChanges();
-            return Redirect("/Admin/Images");
+            return Redirect("/Admin/Image");
         }
 
         public IActionResult Order()
@@ -293,6 +304,13 @@ namespace WebApplication1.Controllers
         }
         public IActionResult DeleteOrderStatus(int id)
         {
+
+            List<Order> order = _context?.Order?.Where(x => x.OrderStatusId == id).ToList();
+
+            foreach (var item in order)
+            {
+                _context.Order.Remove(item);
+            }
             OrderStatus orderStatus = _context?.OrderStatus?.Where(x => x.Id == id).FirstOrDefault();
             _context.OrderStatus.Remove(orderStatus);
             _context.SaveChanges();
@@ -334,6 +352,26 @@ namespace WebApplication1.Controllers
 
         public IActionResult DeleteProduct(int id)
         {
+            List<Images> images = _context.Images?.Where(x => x.ProductId == id).ToList();
+            if (images is not null)
+            {
+                foreach (var item in images)
+                {
+                    _context.Images?.Remove(item);
+                    _context.SaveChanges();
+                }
+            }
+
+            List<Order> order = _context.Order?.Where(x => x.ProductId == id).ToList();
+            if (order is not null)
+            {
+                foreach (var item in order)
+                {
+                    _context.Order?.Remove(item);
+                    _context.SaveChanges();
+                }
+            }
+
             Product product = _context.Product.Where(product => product.Id == id).FirstOrDefault();
             _context.Product.Remove(product);
             _context.SaveChanges();
@@ -379,6 +417,14 @@ namespace WebApplication1.Controllers
         }
         public IActionResult DeleteProductStatus(int id)
         {
+            List<Product> product = _context?.Product?.Where(x => x.ProductStatusId == id).ToList();
+
+            foreach (var item in product)
+            {
+                _context.Product.Remove(item);
+            }
+
+
             ProductStatus productStatus = _context?.ProductStatus?.Where(x => x.Id == id).FirstOrDefault();
             _context.ProductStatus.Remove(productStatus);
             _context.SaveChanges();
@@ -418,6 +464,43 @@ namespace WebApplication1.Controllers
         }
         public IActionResult DeleteRole(int id)
         {
+
+            List<AddressDetail> addressDetails = _context?.AddressDetail?.Where(x => x.UserId == id).ToList();
+
+            foreach (var item in addressDetails)
+            {
+                _context.AddressDetail.Remove(item);
+            }
+
+            List<Order> order = _context?.Order?.Where(x => x.BuyerId == id).ToList();
+
+            foreach (var item in order)
+            {
+                _context.Order.Remove(item);
+            }
+
+            _context.SaveChanges();
+
+            List<Product> products = _context?.Product?.Where(x => x.SellerId == id).ToList();
+
+            foreach (var item in products)
+            {
+                _context.Product.Remove(item);
+            }
+
+            _context.SaveChanges();
+
+
+            List<User> users = _context?.User?.Where(x => x.RoleId == id).ToList();
+
+            foreach (var user in users)
+            {
+                _context.User.Remove(user);
+            }
+            
+            _context.SaveChanges();
+
+
             Role role = _context?.Role?.Where(x => x.Id == id).FirstOrDefault();
             _context.Role.Remove(role);
             _context.SaveChanges();
@@ -460,11 +543,21 @@ namespace WebApplication1.Controllers
 
         public IActionResult DeleteUser(int id)
         {
-            AddressDetail AddressDetail = _context.AddressDetail?.Where(x => x.UserId == id).FirstOrDefault();
-            if (AddressDetail is not null)
+            AddressDetail addressDetail = _context.AddressDetail?.Where(x => x.UserId == id).FirstOrDefault();
+            if (addressDetail is not null)
             {
-                _context.AddressDetail?.Remove(AddressDetail);
+                _context.AddressDetail?.Remove(addressDetail);
                 _context.SaveChanges();
+            }
+
+            List<Images> images = _context.Images?.Where(x => x.ProductId == id).ToList();
+            if (images is not null)
+            {
+                foreach (var item in images)
+                {
+                    _context.Images?.Remove(item);
+                    _context.SaveChanges();
+                }
             }
 
             Product product = _context.Product?.Where(x => x.SellerId == id).FirstOrDefault();
@@ -474,16 +567,7 @@ namespace WebApplication1.Controllers
                 _context.SaveChanges();
             }
 
-            List<Models.Images> Images = _context.Images?.Where(x => x.ProductId == id).ToList();
-            if (Images is not null)
-            {
-                foreach (var item in Images)
-                {
-                    _context.Images?.Remove(item);
-                    _context.SaveChanges();
-                }
-
-            }
+       
 
             User user = _context.User.Where(user => user.Id == id).FirstOrDefault();
             _context.User.Remove(user);
