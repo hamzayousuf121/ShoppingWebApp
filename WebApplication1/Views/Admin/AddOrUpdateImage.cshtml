@@ -11,11 +11,7 @@
 
         <div class="mb-1">
             <label class="form-label" asp-for="ProductId">Select Product </label>
-            <select asp-for="ProductId" class="form-control">
-                @foreach (var item in ViewBag.Product)
-                {
-                    <option value="@item.Id">@item.Title</option>
-                }
+            <select asp-for="ProductId" class="form-control" asp-items="@ViewBag.Product">      
             </select>
         </div>
 

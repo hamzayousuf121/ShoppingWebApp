@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
@@ -37,8 +38,8 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateAddressDetail(int id)
         {
-            ViewBag.City = _context.City.ToList();
-            ViewBag.User = _context.User.ToList();
+            ViewBag.City = new SelectList(_context.City.ToList(),"Id", "Name");
+            ViewBag.User = new SelectList(_context.User.ToList(), "Id", "Name");
 
             if (id == 0)
             {
@@ -128,7 +129,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateSubCategory(int id)
         {
-            ViewBag.Category = _context.Category.ToList();
+            ViewBag.Category = new SelectList(_context.Category.ToList(), "Id", "Name") ;
 
             if (id == 0)
             {
@@ -223,7 +224,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateImage(int id)
         {
-            ViewBag.Product = _context.Product.ToList();
+            ViewBag.Product = new SelectList(_context.Product.ToList(), "Id", "Title");
             if (id == 0)
             {
                 return View();
@@ -254,9 +255,9 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateOrder(int id = 0)
         {
-            ViewBag.Product = _context.Product.ToList();
-            ViewBag.Buyer = _context.User.ToList();
-            ViewBag.OrderStatus = _context.OrderStatus.ToList();
+            ViewBag.Product = new SelectList(_context.Product.ToList(), "Id", "Title");
+            ViewBag.Buyer = new SelectList(_context.User.ToList(), "Id", "Name");
+            ViewBag.OrderStatus = new SelectList(_context.OrderStatus.ToList(), "Id", "Name");
 
             if (id == 0)
             {
@@ -381,9 +382,9 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateProduct(int id)
         {
-            ViewBag.ProductStatus = _context.ProductStatus.ToList();
-            ViewBag.SubCategory = _context.SubCategory.ToList();
-            ViewBag.Seller = _context.User.ToList();
+            ViewBag.ProductStatus = new SelectList(_context.ProductStatus.ToList(), "Id", "Name");
+            ViewBag.SubCategory = new SelectList(_context.SubCategory.ToList(), "Id", "Name");
+            ViewBag.Seller = new SelectList(_context.User.ToList(), "Id", "Name");
 
             if (id == 0)
             {
@@ -578,6 +579,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult AddOrUpdateUser(User user)
         {
+            user.AccessToken = Guid.NewGuid().ToString();
             _context.User.Update(user);
             _context.SaveChanges();
             return Redirect("/Admin/User");
@@ -587,7 +589,7 @@ namespace WebApplication1.Controllers
         public IActionResult AddOrUpdateUser(int id = 0)
         {
 
-            ViewBag.Role = _context.Role.ToList();
+            ViewBag.Role = new SelectList(_context.Role.ToList(), "Id", "Name");
 
             if (id == 0)
             {

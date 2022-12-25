@@ -21,23 +21,13 @@
 
         <div class="mb-1">
             <label class="form-label" asp-for="CityId">Select City</label>
-            <select asp-for="CityId" class="form-control">
-
-                @foreach (var item in ViewBag.City)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select asp-for="CityId" class="form-control" asp-items="ViewBag.City">   
             </select>
         </div>
 
         <div class="mb-1">
             <label class="form-label" asp-for="UserId">Select User</label>
-            <select asp-for="UserId" class="form-control">
-
-                @foreach (var item in ViewBag.User)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select asp-for="UserId" class="form-control" asp-items="ViewBag.User">
             </select>
         </div>
 

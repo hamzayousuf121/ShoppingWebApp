@@ -6,21 +6,13 @@
         <input type="hidden" asp-for="Id" />
         <div class="mb-1">
             <label class="form-label" asp-for="ProductId">Select Product </label>
-            <select asp-for="ProductId" class="form-control">
-                @foreach (var item in ViewBag.Product)
-                {
-                    <option value="@item.Id">@item.Title</option>
-                }
+            <select asp-for="ProductId" class="form-control" asp-items="@ViewBag.Product">
             </select>
         </div>
 
         <div class="mb-1">
             <label class="form-label" asp-for="BuyerId">Buyer </label>
-            <select asp-for="BuyerId" class="form-control">
-                @foreach (var item in ViewBag.Buyer)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select asp-for="BuyerId" class="form-control" asp-items="@ViewBag.Buyer">
             </select>
         </div>
 
@@ -31,11 +23,7 @@
 
         <div class="mb-1">
             <label class="form-label" asp-for="OrderStatusId">Order Status </label>
-            <select asp-for="OrderStatusId" class="form-control">
-                @foreach (var item in ViewBag.OrderStatus)
-                {
-                        <option value="@item.Id">@item.Name</option>
-                }
+            <select asp-for="OrderStatusId" class="form-control" asp-items="@ViewBag.OrderStatus">
             </select>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>

@@ -2,8 +2,7 @@
 @model User
 
 <div class="container">
-    <form asp-controller="Admin" asp-action="AddOrUpdateUser" method="post">
-        <input type="hidden" asp-for="Id" />
+    <form asp-controller="Account" asp-action="Register" method="post">
         <div class="mb-1">
             <label asp-for="Name" class="form-label">Name</label>
             <input type="text" asp-for="Name" class="form-control">
@@ -22,14 +21,9 @@
             <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
             <input type="number" asp-for="PhoneNumber" class="form-control">
         </div>
-
-        <div class="mb-1">
-            <label asp-for="JoinOn" class="form-label">Join On</label>
-            <input type="date" asp-for="JoinOn" class="form-control">
-        </div>
         <div class="mb-1">
             <label class="form-label" asp-for="RoleId">Select Role</label>
-            <select asp-for="RoleId" class="form-control" asp-items="@ViewBag.Role">         
+            <select asp-for="RoleId" class="form-control" asp-items="@ViewBag.Role">
             </select>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>

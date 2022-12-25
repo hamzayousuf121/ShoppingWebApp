@@ -1,0 +1,19 @@
+﻿@using WebApplication1.Migrations
+@model User
+
+<div class="container">
+    <form asp-controller="Account" asp-action="Login" method="post"> 
+        @if(ViewBag.ErrorMessage is not null){
+            <p class="text-danger">@ViewBag.ErrorMessage</p>
+        }
+        <div class="mb-1">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input type="email" asp-for="Email" class="form-control">
+        </div>
+        <div class="mb-1">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input type="Password" asp-for="Password" class="form-control">
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

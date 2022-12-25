@@ -31,31 +31,19 @@
 
          <div class="mb-1">
             <label asp-for="SellerId" class="form-label">Seller</label>
-            <select class="form-control" asp-for="SellerId">
-                @foreach (var item in ViewBag.Seller)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select class="form-control" asp-for="SellerId" asp-items="@ViewBag.Seller">
             </select>
         </div>
 
         <div class="mb-1">
             <label asp-for="ProductStatusId" class="form-label">Product Status</label>
-            <select class="form-control" asp-for="ProductStatusId">
-                @foreach (var item in ViewBag.ProductStatus)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select class="form-control" asp-for="ProductStatusId" asp-items="@ViewBag.ProductStatus">
             </select>
         </div>
 
         <div class="mb-1">
             <label asp-for="SubCategoryId" class="form-label">Sub Category</label>
-            <select class="form-control" asp-for="SubCategoryId">
-                @foreach (var item in ViewBag.SubCategory)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
+            <select class="form-control" asp-for="SubCategoryId" asp-items="@ViewBag.SubCategory">
             </select>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
