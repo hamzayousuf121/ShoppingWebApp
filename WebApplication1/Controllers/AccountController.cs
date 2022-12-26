@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -26,6 +27,10 @@ namespace WebApplication1.Controllers
             user.AccessToken = Guid.NewGuid().ToString();
             _context.User.Add(user);
             _context.SaveChanges();
+
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Append("user-access-token", user.AccessToken, cookieOptions);
             return Redirect("/Home/Index");
         }
 
@@ -39,16 +44,21 @@ namespace WebApplication1.Controllers
 
         public IActionResult Login(User user)
         {
-            User DbUser = _context.User.Where(x => x.Email.ToLower().Equals(user.Email, StringComparison.OrdinalIgnoreCase) && x.Password.Equals(user.Password)).FirstOrDefault();    
+            User DbUser = _context.User.Where(x => x.Email.ToLower().Equals(user.Email) && x.Password.Equals(user.Password)).FirstOrDefault();    
             if(DbUser == null)
             {
                 ViewBag.ErrorMessage = "Email or Password is incorrect";
                 return View();
             }
+
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Append("user-access-token", DbUser.AccessToken, cookieOptions);
             return Redirect("/Home/Index");
         }
         public IActionResult Logout()
         {
+            Response.Cookies.Delete("user-access-token");
             return Redirect("/Home/Index");
         }
     }

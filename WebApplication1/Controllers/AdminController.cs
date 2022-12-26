@@ -59,11 +59,15 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/AddressDetail");
         }
+
+        [Admin]
         public IActionResult Category()
         {
             List<Category> Category = _context.Category.ToList();
             return View(Category);
         }
+
+        [Admin]
         public IActionResult ViewCategory(int id)
         {
             Category? category = _context.Category.Where(x => x.Id == id).FirstOrDefault();
@@ -76,6 +80,8 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Category");
         }
+
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateCategory(int id)
         {
@@ -90,7 +96,8 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateCategory(Category category)
         {
@@ -98,17 +105,20 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Category");
         }
+        
+        [Admin]
         public IActionResult SubCategory()
         {
             List<SubCategory> SubCategory = _context.SubCategory.Include(Category => Category.Category).ToList();
             return View(SubCategory);
         }
-
+        [Admin]
         public IActionResult ViewSubCategory(int id)
         {
             SubCategory subCategory = _context?.SubCategory?.Include(Category => Category.Category).Where(x => x.Id == id).FirstOrDefault();
             return View(subCategory);
         }
+        [Admin]
         public IActionResult DeleteSubCategory(int id)
         {
 
@@ -126,10 +136,12 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/SubCategory");
         }
+        
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateSubCategory(int id)
         {
-            ViewBag.Category = new SelectList(_context.Category.ToList(), "Id", "Name") ;
+            ViewBag.Category = new SelectList(_context.Category.ToList(), "Id", "Name");
 
             if (id == 0)
             {
@@ -142,7 +154,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateSubCategory(SubCategory subCategory)
         {
@@ -150,18 +162,19 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/SubCategory");
         }
-
+        [Admin]
         public IActionResult City()
         {
             List<City> City = _context.City.ToList();
             return View(City);
         }
-
+        [Admin]
         public IActionResult ViewCity(int id)
         {
             City city = _context?.City.Where(x => x.Id == id).FirstOrDefault();
             return View(city);
         }
+        [Admin]
         public IActionResult DeleteCity(int id)
         {
             List<AddressDetail> addressDetail = _context.AddressDetail?.Where(x => x.CityId == id).ToList();
@@ -181,6 +194,7 @@ namespace WebApplication1.Controllers
             return Redirect("/Admin/City");
         }
         [HttpGet]
+        [Admin]
         public IActionResult AddOrUpdateCity(int id)
         {
             if (id == 0)
@@ -194,7 +208,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateCity(City city)
         {
@@ -202,18 +216,22 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/City");
         }
-
+       
+        [Seller]
         public IActionResult Image()
         {
             List<Images> Images = _context.Images.Include(Images => Images.Product).ToList();
             return View(Images);
         }
-
+       
+        [Seller]
         public IActionResult ViewImage(int id)
         {
             Images? Images = _context.Images?.Include(Images => Images.Product).Where(x => x.Id == id).FirstOrDefault();
             return View(Images);
         }
+        
+        [Seller]
         public IActionResult DeleteImage(int id)
         {
             Images? Images = _context.Images.Where(x => x.Id == id).FirstOrDefault();
@@ -221,6 +239,8 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Image");
         }
+        
+        [Seller]
         [HttpGet]
         public IActionResult AddOrUpdateImage(int id)
         {
@@ -236,7 +256,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Seller]
         [HttpPost]
         public IActionResult AddOrUpdateImage(Images Images)
         {
@@ -244,7 +264,9 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Image");
         }
-
+        [Admin]
+        [Seller]
+        [Buyer]
         public IActionResult Order()
         {
             List<Order> Order = _context.Order.Include(buyer => buyer.Buyer).Include(product => product.Product).Include(x => x.OrderStatus).ToList();
@@ -271,7 +293,8 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Seller]
+        [Buyer]
         [HttpPost]
         public IActionResult AddOrUpdateOrder(Order order)
         {
@@ -279,12 +302,14 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Order");
         }
+        [Buyer]
         public IActionResult ViewOrder(int id)
         {
             Order order = _context.Order.Include(buyer => buyer.Buyer).Include(product => product.Product).Include(x => x.OrderStatus).Where(x => x.Id == id).FirstOrDefault();
             return View(order);
         }
-
+        [Seller]
+        [Buyer]
         public IActionResult DeleteOrder(int id)
         {
             Order order = _context.Order.Include(buyer => buyer.Buyer).Include(product => product.Product).Include(x => x.OrderStatus).Where(x => x.Id == id).FirstOrDefault();
@@ -292,17 +317,23 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Order");
         }
+       
+        [Seller]
+        [Buyer]
         public IActionResult OrderStatus()
         {
             List<OrderStatus> orderStatus = _context.OrderStatus.ToList();
             return View(orderStatus);
         }
-
+        [Buyer]
+        [Seller]
         public IActionResult ViewOrderStatus(int id)
         {
             OrderStatus orderStatus = _context?.OrderStatus.Where(x => x.Id == id).FirstOrDefault();
             return View(orderStatus);
         }
+        
+        [Seller]
         public IActionResult DeleteOrderStatus(int id)
         {
 
@@ -317,6 +348,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/OrderStatus");
         }
+        [Seller]
         [HttpGet]
         public IActionResult AddOrUpdateOrderStatus(int id)
         {
@@ -331,7 +363,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Seller]
         [HttpPost]
         public IActionResult AddOrUpdateOrderStatus(OrderStatus orderStatus)
         {
@@ -340,17 +372,19 @@ namespace WebApplication1.Controllers
             return Redirect("/Admin/OrderStatus");
         }
 
+        [Admin]
         public IActionResult Product()
         {
             List<Product> Product = _context.Product.Include(seller => seller.Seller).Include(productStatus => productStatus.ProductStatus).Include(subCategory => subCategory.SubCategory).ToList();
             return View(Product);
         }
+        [Admin]
         public IActionResult ViewProduct(int id)
         {
             Product product = _context.Product.Include(seller => seller.Seller).Include(productStatus => productStatus.ProductStatus).Include(subCategory => subCategory.SubCategory).Where(product => product.Id == id).FirstOrDefault();
             return View(product);
         }
-
+        [Admin]
         public IActionResult DeleteProduct(int id)
         {
             List<Images> images = _context.Images?.Where(x => x.ProductId == id).ToList();
@@ -378,7 +412,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Product");
         }
-
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateProduct(int id)
         {
@@ -397,25 +431,29 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Admin]
         [HttpPost]
+       
         public IActionResult AddOrUpdateProduct(Product product)
         {
             _context.Product.Update(product);
             _context.SaveChanges();
             return Redirect("/Admin/Product");
         }
+        [Admin]
         public IActionResult ProductStatus()
         {
             List<ProductStatus> productStatus = _context.ProductStatus.ToList();
             return View(productStatus);
         }
 
+        [Admin]
         public IActionResult ViewProductStatus(int id)
         {
             ProductStatus productStatus = _context?.ProductStatus.Where(x => x.Id == id).FirstOrDefault();
             return View(productStatus);
         }
+        [Admin]
         public IActionResult DeleteProductStatus(int id)
         {
             List<Product> product = _context?.Product?.Where(x => x.ProductStatusId == id).ToList();
@@ -431,6 +469,8 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/ProductStatus");
         }
+       
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateProductStatus(int id)
         {
@@ -445,7 +485,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateProductStatus(ProductStatus productStatus)
         {
@@ -458,11 +498,13 @@ namespace WebApplication1.Controllers
             List<Role> Role = _context.Role.ToList();
             return View(Role);
         }
+        [Admin]
         public IActionResult ViewRole(int id)
         {
             Role role = _context?.Role.Where(x => x.Id == id).FirstOrDefault();
             return View(role);
         }
+        [Admin]
         public IActionResult DeleteRole(int id)
         {
 
@@ -507,6 +549,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Role");
         }
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateRole(int id)
         {
@@ -521,7 +564,8 @@ namespace WebApplication1.Controllers
             }
 
         }
-
+        
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateRole(Role role)
         {
@@ -529,7 +573,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Role");
         }
-
+        [Admin]
         public IActionResult User()
         {
             List<User> User = _context.User.Include(user => user.Role).ToList();
@@ -542,6 +586,7 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
+        [Admin]
         public IActionResult DeleteUser(int id)
         {
             AddressDetail addressDetail = _context.AddressDetail?.Where(x => x.UserId == id).FirstOrDefault();
@@ -568,14 +613,12 @@ namespace WebApplication1.Controllers
                 _context.SaveChanges();
             }
 
-       
-
             User user = _context.User.Where(user => user.Id == id).FirstOrDefault();
             _context.User.Remove(user);
             _context.SaveChanges();
             return Redirect("/Admin/User");
         }
-
+        [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateUser(User user)
         {
@@ -584,7 +627,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/User");
         }
-
+        [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateUser(int id = 0)
         {
