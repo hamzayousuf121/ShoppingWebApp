@@ -2,11 +2,11 @@
 @model Images
 
 <div class="container">
-    <form asp-controller="Admin" asp-action="AddOrUpdateImage" method="post">
+    <form asp-controller="Admin" asp-action="AddOrUpdateImage" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
         <div class="mb-1">
-            <label asp-for="Url" class="form-label">Images URL</label>
-            <input type="text" asp-for="Url" class="form-control">
+            <label for="ImageURL" class="form-label">Upload Multiple Images</label>
+            <input type="file" id="ImageURL" name="ImageURL" multiple class="form-control">
         </div>
 
         <div class="mb-1">

@@ -9,9 +9,11 @@ namespace WebApplication1.Controllers
     public class AdminController : Controller
     {
         private readonly ShoppingContext _context;
-        public AdminController(ShoppingContext shoppingContext)
+        private readonly IHostEnvironment _environment;
+        public AdminController(ShoppingContext shoppingContext, IHostEnvironment environment)
         {
             _context = shoppingContext;
+            _environment = environment;
         }
         public IActionResult Index()
         {
@@ -38,7 +40,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult AddOrUpdateAddressDetail(int id)
         {
-            ViewBag.City = new SelectList(_context.City.ToList(),"Id", "Name");
+            ViewBag.City = new SelectList(_context.City.ToList(), "Id", "Name");
             ViewBag.User = new SelectList(_context.User.ToList(), "Id", "Name");
 
             if (id == 0)
@@ -96,7 +98,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-        
+
         [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateCategory(Category category)
@@ -105,7 +107,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Category");
         }
-        
+
         [Admin]
         public IActionResult SubCategory()
         {
@@ -136,7 +138,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/SubCategory");
         }
-        
+
         [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateSubCategory(int id)
@@ -216,21 +218,21 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/City");
         }
-       
+
         [Seller]
         public IActionResult Image()
         {
             List<Images> Images = _context.Images.Include(Images => Images.Product).ToList();
             return View(Images);
         }
-       
-        [Seller]
+
+         [Seller]
         public IActionResult ViewImage(int id)
         {
             Images? Images = _context.Images?.Include(Images => Images.Product).Where(x => x.Id == id).FirstOrDefault();
             return View(Images);
         }
-        
+
         [Seller]
         public IActionResult DeleteImage(int id)
         {
@@ -239,11 +241,12 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Image");
         }
-        
-        [Seller]
+
+         [Seller]
         [HttpGet]
         public IActionResult AddOrUpdateImage(int id)
         {
+
             ViewBag.Product = new SelectList(_context.Product.ToList(), "Id", "Title");
             if (id == 0)
             {
@@ -257,16 +260,24 @@ namespace WebApplication1.Controllers
 
         }
         [Seller]
+
         [HttpPost]
         public IActionResult AddOrUpdateImage(Images Images)
         {
-            _context.Images.Update(Images);
-            _context.SaveChanges();
+            //Multiple Image Uploading
+            var fileCollection = Request.Form.Files;
+            foreach (var item in fileCollection)
+            {
+                Images.Url = $"{DateTime.UtcNow.Ticks}.jpg";
+                string path = $"{_environment.ContentRootPath}/wwwroot/images/{Images.Url}";
+                item.CopyTo(new FileStream(path, FileMode.Create));
+                _context.Images.Update(Images);
+                _context.SaveChanges();
+            }
             return Redirect("/Admin/Image");
+
         }
         [Admin]
-        [Seller]
-        [Buyer]
         public IActionResult Order()
         {
             List<Order> Order = _context.Order.Include(buyer => buyer.Buyer).Include(product => product.Product).Include(x => x.OrderStatus).ToList();
@@ -317,7 +328,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Order");
         }
-       
+
         [Seller]
         [Buyer]
         public IActionResult OrderStatus()
@@ -332,7 +343,7 @@ namespace WebApplication1.Controllers
             OrderStatus orderStatus = _context?.OrderStatus.Where(x => x.Id == id).FirstOrDefault();
             return View(orderStatus);
         }
-        
+
         [Seller]
         public IActionResult DeleteOrderStatus(int id)
         {
@@ -431,11 +442,17 @@ namespace WebApplication1.Controllers
             }
 
         }
-        [Admin]
+
         [HttpPost]
-       
+
         public IActionResult AddOrUpdateProduct(Product product)
         {
+            //Image Uploading
+            var file = Request.Form.Files["ProductImage"];
+            product.Images = $"{DateTime.UtcNow.Ticks}.jpg";
+            string path = $"{_environment.ContentRootPath}/wwwroot/images/{product.Images}";
+            file.CopyTo(new FileStream(path, FileMode.Create));
+
             _context.Product.Update(product);
             _context.SaveChanges();
             return Redirect("/Admin/Product");
@@ -469,7 +486,7 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/ProductStatus");
         }
-       
+
         [Admin]
         [HttpGet]
         public IActionResult AddOrUpdateProductStatus(int id)
@@ -540,7 +557,7 @@ namespace WebApplication1.Controllers
             {
                 _context.User.Remove(user);
             }
-            
+
             _context.SaveChanges();
 
 
@@ -564,7 +581,7 @@ namespace WebApplication1.Controllers
             }
 
         }
-        
+
         [Admin]
         [HttpPost]
         public IActionResult AddOrUpdateRole(Role role)
